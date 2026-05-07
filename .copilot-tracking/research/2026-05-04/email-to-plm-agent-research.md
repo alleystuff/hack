@@ -206,7 +206,7 @@ See Section 8 below for the complete system prompt.
 
 **Architecture:**
 
-```mermaid
+```
 sequenceDiagram
     autonumber
     participant User as User / Script
