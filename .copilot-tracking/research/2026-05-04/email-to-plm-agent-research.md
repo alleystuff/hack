@@ -219,8 +219,7 @@ sequenceDiagram
     participant TeamsAPI as Microsoft Teams<br/>(Graph API)
 
     User->>Agent: python agent/main.py
-    Note over Agent: mcp client starts all 3 MCP
-    Note over Agent: servers as local subprocesses
+    Note over Agent: mcp client starts all 3 MCP servers as local subprocesses
     Agent->>OutlookMCP: list-mail-messages($filter=isRead eq false)
     OutlookMCP->>GraphMail: GET /me/mailFolders/inbox/messages?$filter=isRead eq false
     GraphMail-->>OutlookMCP: unread email list (id, subject, sender, receivedDateTime)
@@ -232,8 +231,7 @@ sequenceDiagram
         GraphMail-->>OutlookMCP: full message with body content
         OutlookMCP-->>Agent: email with full body text
 
-        Note over Agent,LLM: Agent sends email + record context
-        Note over Agent,LLM: to GPT-4o via Foundry HTTPS endpoint
+        Note over Agent,LLM: Agent sends email+record to GPT-4o (Foundry HTTPS)
         Agent->>LLM: chat.completions.create(tools=[...], messages=[...])
         LLM-->>Agent: tool_call: search_design_record(identifier)
 
@@ -242,8 +240,7 @@ sequenceDiagram
         Files-->>PLM: matching design record row
         PLM-->>Agent: design record fields
 
-        Note over Agent,LLM: GPT-4o reasons about required
-        Note over Agent,LLM: design changes from email + record
+        Note over Agent,LLM: GPT-4o reasons about required design changes
         Agent->>LLM: tool result injected; next tool_call
         LLM-->>Agent: tool_call: update_design_record(...)
 
